@@ -1,0 +1,45 @@
+* {
+    box-sizing: border-box;
+} 
+
+body {
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+    margin:0 auto;
+    height: 100vh; 
+    max-width: 800px;
+    text-align: center;
+    background-image: url('imgs/background2.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+
+} 
+
+.logo > img {
+    max-height: 150px; 
+    margin: 10px auto;
+}
+
+.sublogo > img { 
+    height: 45px;
+    margin: -1rem auto 0;
+}
+
+h3 {
+    font-size: 24px;
+    margin: 12px auto;
+}
+
+/*to make this responsive on phones*/
+@media screen and (max-width: 480px) {
+    .logo > img {
+        height: 115px;
+    }
+    
+    .sublogo > img {
+        height: 35px;
+    }
+    h2 {
+        font-size: 24px;
+        margin-top: -47px;
+    }
+}
