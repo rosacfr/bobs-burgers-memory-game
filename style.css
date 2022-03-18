@@ -2,6 +2,9 @@
     box-sizing: border-box;
 } 
 
+html {
+    min-height: 100vh;
+}
 body {
     font-family: 'Yanone Kaffeesatz', sans-serif;
     margin:0 auto;
@@ -15,26 +18,55 @@ body {
 } 
 
 .logo > img {
-    max-height: 150px; 
+    width: 350px; 
     margin: 10px auto;
 }
 
 .sublogo > img { 
-    height: 45px;
+    width: 230px;
     margin: -1rem auto 0;
 }
 
-h3 {
-    font-size: 24px;
-    margin: 12px auto;
+h2 {
+    font-size: 25px;
+    margin: 5px auto;
 }
+
+h3 {
+    margin-top: 2px;
+    font-size: 21px;
+}
+
+#game-container{
+    width: 500px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 10px;
+    position: relative;
+}
+
+.card > img {
+    width: 80px;
+    border-radius: 15%;
+    border: solid 4px rgb(180, 28, 39);
+    box-shadow: 5px 5px 10px;
+}
+
+.back-card {  /*overlays over front-card image*/
+    position: absolute;
+    margin: 0 -80px;;
+}
+
+
 
 /*to make this responsive on phones*/
 @media screen and (max-width: 480px) {
     body {
         text-align: center;
         background-size: cover;
-        margin: 0 10px 0 0;
+        margin: 0;
         padding: 5px;
     }
     .logo > img {
@@ -44,8 +76,33 @@ h3 {
     .sublogo > img {
         height: 30px;
     }
-    h3 {
+    h2, h3 {
         font-size: 16px;
-        margin: 3px;
+    } 
+
+    h2 { 
+        margin-top: 4px;
+    }
+
+    h3 {
+        margin-top: -7px;
+    }
+
+    #game-container {
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(5, 1fr);
+        width: 300px;
+    }
+
+    .card > img {
+        width: 60px;
+        border-radius: 15%;
+        border: solid 4px rgb(180, 28, 39);
+        box-shadow: 5px 5px 10px;
+        
+    }
+
+    .back-card {
+        margin: 0 -60px;
     }
 }
