@@ -2,9 +2,6 @@
     box-sizing: border-box;
 } 
 
-html {
-    min-height: 100vh;
-}
 body {
     font-family: 'Yanone Kaffeesatz', sans-serif;
     margin:0 auto;
@@ -29,26 +26,25 @@ body {
 }
 
 h2 {
-    font-size: 24px;
+    font-size: 26px;
     margin: 8px auto;
 }
 
 h3 {
     margin-top: 2px;
-    font-size: 22px;
+    font-size: 20px;
 }
 
 #timer {
-    margin: -7px auto 5px;
+    margin: -4px auto 5px;
     font-size: 25px;
 }
 
-
 #game-container{
-    width: 500px;
+    width: 550px;
     margin: 0 auto 15px;
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     grid-template-rows: repeat(4, 1fr);
     gap: 10px;
     position: relative;
@@ -86,7 +82,7 @@ button {
 
 button > img {
     box-shadow: 3px 3px 10px;
-    width: 130px;
+    width: 110px;
     margin: 0;
     padding: 0;
 }
@@ -111,35 +107,34 @@ footer > p {
 /*to make this responsive on phones*/
 @media screen and (max-width: 480px) {
     body {
+        width: 350px;
         text-align: center;
         background-size: cover;
-        margin: 0;
+        margin: 0 auto;
         padding: 5px;
     }
     .logo > img {
-        height: 105px;
+        width: 270px;
     }
     
     .sublogo > img {
-        height: 35px;
+        width: 200px;
     }
     h2, h3 {
-        font-size: 20px;
+        font-size: 18px;
+        margin-top: 5px;
     } 
 
-    h2 { 
-        margin-top: 8px;
-    }
-
-    h3 {
-        margin-top: 0;
+    #timer {
+        font-size: 20px;
+        margin-top: 5px;;
     } 
 
     #game-container {
         grid-template-columns: repeat(4, 1fr);
-        grid-template-rows: repeat(5, 1fr);
-        width: 300px;
-        margin:10px auto 30px;
+        grid-template-rows: repeat(6, 1fr);
+        width: 290px;
+        margin:10px auto 10px;
     }
 
     .card > img {
