@@ -29,18 +29,24 @@ body {
 }
 
 h2 {
-    font-size: 26px;
+    font-size: 24px;
     margin: 8px auto;
 }
 
 h3 {
     margin-top: 2px;
-    font-size: 24px;
+    font-size: 22px;
 }
+
+#timer {
+    margin: -7px auto 5px;
+    font-size: 25px;
+}
+
 
 #game-container{
     width: 500px;
-    margin: 0 auto;
+    margin: 0 auto 15px;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: repeat(4, 1fr);
@@ -48,21 +54,19 @@ h3 {
     position: relative;
 }
 
-.card {
+/* .card {
     transition: transform .5s ease;
-}
+} */
 .card > img {
     width: 80px;
     border-radius: 15%;
     border: solid 4px rgb(180, 28, 39);
-    box-shadow: 3px 3px 10px;
+    box-shadow: 1px 1px 10px;
 }
 
-.card:hover{ 
-    -webkit-transform: scale(0.9);
-    -ms-transform: scale(0.9);
-    transform: scale(0.9);
+.card > img:hover{ 
     cursor: pointer;
+    box-shadow: 8px 7px 14px;
 }
 
 .back-card {  /*overlays over front-card image*/
@@ -70,22 +74,26 @@ h3 {
     margin: 0 -80px;;
 }
 
-#timer {
-    margin: 10px auto 5px;
-    font-size: 25px;
-}
 
 button {
-    width: 100px;
-    height: 40px; 
-    border: solid rgb(180,28, 39) 5px;
-    background-color: rgb(245, 224, 82);
-    box-shadow: 3px 3px 10px;
+    height: 20px;
+    border: 0;
+    outline: 0;
+    margin: 0; 
+    padding: 0;
     transition: transform .5s ease;
 } 
 
+button > img {
+    box-shadow: 3px 3px 10px;
+    width: 130px;
+    margin: 0;
+    padding: 0;
+}
+
 button:hover {
     cursor: pointer;
+    animation: pulse 2s;
     -webkit-transform: scale(0.9);
     -ms-transform: scale(0.9);
     transform: scale(0.9);
@@ -113,24 +121,25 @@ footer > p {
     }
     
     .sublogo > img {
-        height: 30px;
+        height: 35px;
     }
     h2, h3 {
-        font-size: 16px;
+        font-size: 20px;
     } 
 
     h2 { 
-        margin-top: 4px;
+        margin-top: 8px;
     }
 
     h3 {
-        margin-top: -7px;
-    }
+        margin-top: 0;
+    } 
 
     #game-container {
         grid-template-columns: repeat(4, 1fr);
         grid-template-rows: repeat(5, 1fr);
         width: 300px;
+        margin:10px auto 30px;
     }
 
     .card > img {
