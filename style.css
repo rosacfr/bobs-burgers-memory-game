@@ -59,6 +59,7 @@ h3 {
 .card > img:hover{ 
     cursor: pointer;
     box-shadow: 8px 7px 14px;
+    filter: brightness(1.12);
 }
 
 .back-card {  /*overlays over front-card image*/
@@ -81,14 +82,13 @@ button > img {
     width: 110px;
     margin: 0;
     padding: 0;
+    filter: brightness(1.1);
 }
 
 button:hover {
     cursor: pointer;
     animation: pulse 2s;
-    -webkit-transform: scale(0.9);
-    -ms-transform: scale(0.9);
-    transform: scale(0.9);
+    transform: scale(1.2);
 }
 footer > p {
     height: 20px;
@@ -97,6 +97,7 @@ footer > p {
     text-align: center;
     position: absolute; 
     bottom: 0;
+    font-size: 20x;
 }
 
 
