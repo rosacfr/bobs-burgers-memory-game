@@ -7,6 +7,9 @@ const faceUpCard = document.querySelectorAll('.front-card') //should these be an
 const faceDownCard = document.querySelectorAll('.back-card')
 const cards = Array.from(document.querySelectorAll('.card')); // turns all cards into array
 //console.log(cards)
+let countdown = document.querySelector('#countdown')
+const startingMinutes = 2;
+let time = startingMinutes * 60; // 60 cos want all the seconds ( = 120)
 //arefaceUpCard and faceDown connected to cards array? so if iterating through is cards[i] okay? or will i have to make faceUpCards an array so it can read those image cards;
 
 //event listeners
@@ -22,7 +25,6 @@ init(); //initialize game without any event listeners
 function init(e) {
     shuffleCards();
 }
-// //randomize cards
 // //timer set to 2 min
 
 
@@ -32,6 +34,24 @@ function shuffleCards () {
         cards[i].style.order = randomIndex; //order specifies order of elements
     }
 }
+
+// setInterval(initTimer, 1000) //google what this does (it starts timer) //initializes timer
+
+function initTimer (){
+    const minutes = Math.floor(time /60); // 120/60 = 2
+    let seconds = time % 60; //all seconds remaining after division of 120/60
+    if (seconds < 10){
+        countdown.innerHTML = `${minutes}:0${seconds}` //adds 0 to the end or else would be 2:0 instead of 2:00
+    } else {
+        countdown.innerHTML = `${minutes}:${seconds}`
+    }
+    time --; //cos going down
+}
+
+// function stopTimer (){
+
+// }
+
 // function startTimer() 
 // //starts timer on click of first card
 
