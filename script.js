@@ -8,7 +8,7 @@ const cards = Array.from(document.querySelectorAll('.card')); // turns all cards
 let countdownEl = document.querySelector('#countdown')
 const startingMinutes = 2;
 let time = startingMinutes * 60; // 60 cos want all the seconds ( = 120)
-let busy = true;
+let isProcessing = false;
 let cardToCheck = 0; 
 let firstCard; 
 let secondCard;
@@ -46,19 +46,24 @@ function initTimer(){
     if(time > 0){ //will stop time once hits 0:00
     time --; 
     } else {
+        // cards.forEach(function(card){
+        //     card.style.pointerEvents = 'none';
+        // })
         clearInterval(intervalId);
         gameOver();
     }
 }
 
 function flipCard(e){
+    // if (isProcessing) return;
     if (e.target.className === 'front-card') { 
         e.target.style.opacity = '1';
         //only trigger timer when initial back card is clicked
         if (!intervalId) { //if undefined it will start timer, i.e. only first card will start timer
-            intervalId = setInterval(initTimer, 1000);
+            intervalId = setInterval(initTimer, 100);
         }
     } else {
+        
         return
     }
 };
@@ -66,7 +71,6 @@ function flipCard(e){
 cards.forEach(function(card){
     addEventListener('click', flipCard);
 });
-
 
 function shuffleCards(){
     for (let i=0; i<cards.length; i++){
@@ -89,8 +93,6 @@ cards.forEach(function(card){
         secondCard = e.target;
         cardToCheck = 0; //reruns cycle
         }
-        console.log(`first ${firstCardText}`);
-        console.log(`second ${secondCardText}`);
         if (firstCardText === secondCardText){
             isMatch(firstCard, secondCard);
         } else if (firstCardText !== secondCardText){
@@ -102,14 +104,15 @@ cards.forEach(function(card){
 }
 checkMatch();
 
+
 function isMatch(card1, card2){
     if(firstCard && secondCard){
     matchedCards.push(card1); 
     matchedCards.push(card2);
     card1.removeEventListener('click', flipCard); 
     card2.removeEventListener('click', flipCard);
-    card1.style.cursor = 'not-allowed';
-    card2.style.cursor = 'not-allowed';
+    card1.style.pointerEvents = 'none';
+    card2.style.pointerEvents = 'none';
     //This will prevent previous matched cards from being compared
     firstCard = null; 
     secondCard = null; 
@@ -119,18 +122,21 @@ function isMatch(card1, card2){
 }
 
 function isNotMatch(card1, card2){
-        if(firstCard && secondCard){
-        setTimeout(() => {
-            card1.style.opacity = '0';
-            card2.style.opacity = '0';
-            firstCard = null; 
-            secondCard = null; 
-            firstCardText = null; 
-            secondCardText = null;
-        }, 1000);
+    // isProcessing = true;
+    if(firstCard && secondCard){
+    setTimeout(() => {
+        card1.style.opacity = '0';
+        card2.style.opacity = '0';
+        firstCard = null; 
+        secondCard = null; 
+        firstCardText = null; 
+        secondCardText = null;
+        // isProcessing = false;
+        }, 1200);
         
     }
 }
+
 
 function checkWinner(){ 
     if (matchedCards.length === cards.length){
@@ -144,10 +150,10 @@ function checkWinner(){
 function gameOver(){
     h2El.innerText = 'SORRY, YOU RAN OUT OF TIME. YOU LOSE.'
     h3El.innerText = 'PRESS \'START OVER\' TO PLAY AGAIN.'
+   
+
     // cards.forEach(function(card){ //continues to disable cards once start over btn pressed
     //     removeEventListener('click', flipCard);
-        // card.style.cursor = 'not-allowed'; //not working, still showing pointer finger
-    // });
 }
 
 function resetTimer(){ 
