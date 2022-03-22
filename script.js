@@ -8,9 +8,12 @@ const cards = Array.from(document.querySelectorAll('.card')); // turns all cards
 let countdownEl = document.querySelector('#countdown')
 const startingMinutes = 2;
 let time = startingMinutes * 60; // 60 cos want all the seconds ( = 120)
+let busy = true;
 let cardToCheck = 0; 
 let firstCard; 
 let secondCard;
+let firstCardText; 
+let secondCardText;
 let intervalId; //setInterval always has an id
 let matchedCards = [];
 
@@ -52,8 +55,8 @@ function flipCard(e){
     if (e.target.className === 'front-card') { 
         e.target.style.opacity = '1';
         //only trigger timer when initial back card is clicked
-        if (!intervalId) { //if not defined will start timer, i.e. only first card will start timer
-            intervalId = setInterval(initTimer, 10);
+        if (!intervalId) { //if undefined it will start timer, i.e. only first card will start timer
+            intervalId = setInterval(initTimer, 1000);
         }
     } else {
         return
@@ -68,48 +71,84 @@ cards.forEach(function(card){
 function shuffleCards(){
     for (let i=0; i<cards.length; i++){
         let randomIndex = Math.floor(Math.random() * cards.length);
-        cards[i].style.order = randomIndex; //.order specifies order of elements
+        //.order specifies order of elements
+        cards[i].style.order = randomIndex; 
     }
 }
 
+//Ensures only two cards are being checked at a time and whether it's a match
+function checkMatch(){
 cards.forEach(function(card){
     card.addEventListener('click', (e) => {
         if (cardToCheck === 0) {
-        firstCard = e.target.getAttribute('alt') // img alt attribute in html
+        firstCardText = e.target.getAttribute('alt') // img alt attribute in html
+        firstCard = e.target
         cardToCheck++;
         } else {
-        secondCard = e.target.getAttribute('alt');
+        secondCardText = e.target.getAttribute('alt');
+        secondCard = e.target;
         cardToCheck = 0; //reruns cycle
         }
-        if (firstCard === secondCard){
-            matchedCards.push(firstCard); 
-            matchedCards.push(secondCard);
-
-        } else if (firstCard !== secondCard){
-            console.log('Not a match');
-            e.target.style.opacity = '0';
+        console.log(`first ${firstCardText}`);
+        console.log(`second ${secondCardText}`);
+        if (firstCardText === secondCardText){
+            isMatch(firstCard, secondCard);
+        } else if (firstCardText !== secondCardText){
+            isNotMatch(firstCard, secondCard);
         }
-    })
+    });
 });
+}
+checkMatch();
 
-// function isMatch(){ 
+function isMatch(card1, card2){
+    if(firstCard && secondCard){
+    matchedCards.push(card1); 
+    matchedCards.push(card2);
+    card1.removeEventListener('click', flipCard); 
+    card2.removeEventListener('click', flipCard);
+    card1.style.cursor = 'not-allowed';
+    card2.style.cursor = 'not-allowed';
+    firstCard = null; 
+    secondCard = null; 
+    firstCardText = null; 
+    secondCardText = null;
+    }
+}
 
+function isNotMatch(card1, card2){
+        if(firstCard && secondCard){
+        setTimeout(() => {
+            card1.style.opacity = '0';
+            card2.style.opacity = '0';
+            firstCard = null; 
+            secondCard = null; 
+            firstCardText = null; 
+            secondCardText = null;
+        }, 1000);
+        
+    }
+}
+//
+
+// function isMatch(card1, card2){
+//     faceUpCard.forEach(function(card){
+//     matchedCards.push(card1); 
+//     matchedCards.push(card2);
+//     card1.removeEventListener('click', flipCard); 
+//     card2.removeEventListener('click', flipCard);
+//     card1.classList.add('matched');
+//     card2.classList.add('matched');
+// });
 // }
 
-// function isNotMatch(){ 
-
-// }
-
-// function checkMatch () {
-//     if (firstCard === secondCard){
-//         console.log('It\'s a match')
-//     } else {
-//         console.log('Not a match');
-//     }
-// }
-
-// function checkMatch(){
-
+// function isNotMatch(card1, card2){
+//     faceUpCard.forEach(function(card){
+//         setTimeout(() => {
+//             card1.classList.add('nomatch');
+//             card2.classList.add('nomatch');
+//         }, 1000);
+//     })
 // }
 
 
@@ -120,7 +159,6 @@ function checkWinner(){
         h3El.innerText = 'PRESS \'START OVER\' TO PLAY AGAIN.'
     }
 }
-
 
 function gameOver(){
     h2El.innerText = 'SORRY, YOU RAN OUT OF TIME. YOU LOSE.'
@@ -153,29 +191,3 @@ function resetCards(){
 // function stopTimer (){
 // clearTimeout(intervalId);
 // } 
-
-//function startGame(){
-// setInteral(initTimer,1000)
-// checkMatch()
-// more functions etc etc ????????????????
-// }
-
-// //flips card over 
-// //only 2 can be flipped at a time
-
-// function flipBack () 
-// //flip card back over if no match
-
-
-// function checkMatch() 
-// //checks for match
-// //if match --> disableCards()
-// // else --> flipBack()
-
-//function disableCards()
-// //disables ability to click 
-// // removes faceDownCard
-
-
-// function displayLoser ()
-// //if timer runs out and still have cards left say Sorry you lose
