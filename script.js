@@ -5,7 +5,6 @@ const gameContainer = document.querySelector('#game-container');
 const faceUpCard = Array.from(document.querySelectorAll('.front-card'));
 const faceDownCard = Array.from(document.querySelectorAll('.back-card'));
 const cards = Array.from(document.querySelectorAll('.card')); // turns all cards into array
-// const imageCard = Array.from(document.querySelectorAll('.front-card').getAttribute('src'));
 let countdownEl = document.querySelector('#countdown')
 const startingMinutes = 2;
 let time = startingMinutes * 60; // 60 cos want all the seconds ( = 120)
@@ -32,7 +31,8 @@ function init(e) {
 }
 init();
 
-function initTimer (){
+//countdown timer. Will stop when it hits 0:00
+function initTimer(){
     let minutes = Math.floor(time /60); // 120/60 = 2 & math.floor or else 1.51666:59
     let seconds = time % 60; //all seconds remaining after division of 120/60
     if (seconds < 10){
@@ -48,7 +48,7 @@ function initTimer (){
     }
 }
 
-function flipCard(e) {
+function flipCard(e){
     if (e.target.className === 'front-card') { 
         e.target.style.opacity = '1';
         //only trigger timer when initial back card is clicked
@@ -65,7 +65,7 @@ cards.forEach(function(card){
 });
 
 
-function shuffleCards () {
+function shuffleCards(){
     for (let i=0; i<cards.length; i++){
         let randomIndex = Math.floor(Math.random() * cards.length);
         cards[i].style.order = randomIndex; //.order specifies order of elements
@@ -79,12 +79,11 @@ cards.forEach(function(card){
         cardToCheck++;
         } else {
         secondCard = e.target.getAttribute('alt');
-        cardToCheck = 0; //
+        cardToCheck = 0; //reruns cycle
         }
-        console.log(firstCard);
-        console.log(secondCard);
         if (firstCard === secondCard){
-            console.log('It\'s a match')
+            matchedCards.push(firstCard); 
+            matchedCards.push(secondCard);
 
         } else if (firstCard !== secondCard){
             console.log('Not a match');
@@ -92,6 +91,14 @@ cards.forEach(function(card){
         }
     })
 });
+
+// function isMatch(){ 
+
+// }
+
+// function isNotMatch(){ 
+
+// }
 
 // function checkMatch () {
 //     if (firstCard === secondCard){
@@ -115,19 +122,23 @@ function checkWinner(){
 }
 
 
-function gameOver (){
+function gameOver(){
     h2El.innerText = 'SORRY, YOU RAN OUT OF TIME. YOU LOSE.'
     h3El.innerText = 'PRESS \'START OVER\' TO PLAY AGAIN.'
+    // cards.forEach(function(card){ //continues to disable cards once start over btn pressed
+    //     removeEventListener('click', flipCard);
+        // card.style.cursor = 'not-allowed'; //not working, still showing pointer finger
+    // });
 }
 
-function resetTimer (){ 
+function resetTimer(){ 
     time = 120;
     countdownEl.innerText = '2:00'
     clearInterval(intervalId);
     intervalId = undefined;
 }
 
-function resetTitle (){ 
+function resetTitle(){ 
     h2El.innerText = 'CLICK ON ANY CARD TO START THE GAME';
     h3El.innerText = 'CAN YOU MATCH ALL OF YOUR FAVORITE CHARACTERS BEFORE TIME RUNS OUT?';
 
@@ -149,11 +160,6 @@ function resetCards(){
 // more functions etc etc ????????????????
 // }
 
-// function startTimer() 
-// //starts timer on click of first card
-
-
-
 // //flips card over 
 // //only 2 can be flipped at a time
 
@@ -170,8 +176,6 @@ function resetCards(){
 // //disables ability to click 
 // // removes faceDownCard
 
-// //function checkWinner()
-// //if all cards are facing up within time say Congrats!
 
 // function displayLoser ()
 // //if timer runs out and still have cards left say Sorry you lose
