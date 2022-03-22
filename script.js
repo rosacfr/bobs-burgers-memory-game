@@ -97,6 +97,7 @@ cards.forEach(function(card){
             isNotMatch(firstCard, secondCard);
         }
     });
+    checkWinner();
 });
 }
 checkMatch();
@@ -109,6 +110,7 @@ function isMatch(card1, card2){
     card2.removeEventListener('click', flipCard);
     card1.style.cursor = 'not-allowed';
     card2.style.cursor = 'not-allowed';
+    //This will prevent previous matched cards from being compared
     firstCard = null; 
     secondCard = null; 
     firstCardText = null; 
@@ -129,36 +131,15 @@ function isNotMatch(card1, card2){
         
     }
 }
-//
-
-// function isMatch(card1, card2){
-//     faceUpCard.forEach(function(card){
-//     matchedCards.push(card1); 
-//     matchedCards.push(card2);
-//     card1.removeEventListener('click', flipCard); 
-//     card2.removeEventListener('click', flipCard);
-//     card1.classList.add('matched');
-//     card2.classList.add('matched');
-// });
-// }
-
-// function isNotMatch(card1, card2){
-//     faceUpCard.forEach(function(card){
-//         setTimeout(() => {
-//             card1.classList.add('nomatch');
-//             card2.classList.add('nomatch');
-//         }, 1000);
-//     })
-// }
-
 
 function checkWinner(){ 
-    if (matchedCards === cards.length){
+    if (matchedCards.length === cards.length){
         clearInterval(intervalId); 
         h2El.innerText = 'CONGRATULATIONS! YOU FOUND EVERYONE!'
         h3El.innerText = 'PRESS \'START OVER\' TO PLAY AGAIN.'
     }
 }
+//called on line 100;
 
 function gameOver(){
     h2El.innerText = 'SORRY, YOU RAN OUT OF TIME. YOU LOSE.'
@@ -186,8 +167,4 @@ function resetCards(){
     faceUpCard.forEach(function(card){ //forEach cos an array
         card.style.opacity = '0';
     });
-}
-
-// function stopTimer (){
-// clearTimeout(intervalId);
-// } 
+} 
