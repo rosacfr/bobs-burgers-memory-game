@@ -61,18 +61,14 @@ h3 {
 }
 
 .back-card:hover {
-    box-shadow: 8px 7px 14px;
-    filter: brightness(1.12);
+    box-shadow: 9px 9px 14px;
+    filter: brightness(1.2);
 }
 
-.front-card {  /*overlays over front-card image*/
+.back-card {  /*overlays over front-card image*/
     position: absolute;
     margin: 0 -80px;
-    opacity: 0;
-}
-
-.card:hover{ 
-    cursor: pointer;
+    opacity: 1;
 }
 
 button {
@@ -93,7 +89,6 @@ button > img {
 }
 
 button:hover {
-    cursor: pointer;
     animation: pulse 2s;
     transform: scale(1.2);
 }
@@ -147,7 +142,7 @@ footer > p {
         width: 60px;
     }
 
-    .front-card {
+    .back-card {
         margin: 0 -60px;
     }
 
