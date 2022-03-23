@@ -6,7 +6,7 @@ const faceUpCard = Array.from(document.querySelectorAll('.front-card'));
 const faceDownCard = Array.from(document.querySelectorAll('.back-card'));
 const cards = Array.from(document.querySelectorAll('.card')); // turns all cards into array
 let countdownEl = document.querySelector('#countdown')
-const startingMinutes = 5;
+const startingMinutes = 2;
 let time = startingMinutes * 60; // 60 cos want all the seconds ( = 120)
 let isProcessing = false;
 let cardsBeingChecked = 0; 
@@ -21,15 +21,13 @@ let matchedCards = [];
 
 startOverBtn.addEventListener('click', init)
 
-//_______________________________________________________________________________
-
 //functions
 function init(e) {
     shuffleCards();
     resetTimer();
     resetCards();
     resetTitle();
-    // resetPointer('pointer');
+    resetPointer();
     cardsBeingChecked = 0; 
     matchedCards = [];
 }
@@ -47,7 +45,9 @@ function initTimer(){
     if(time > 0){ //will stop time once hits 0:00
     time --; 
     } else {
-        resetPointer('none');
+        cards.forEach(function(card){
+            card.style.pointerEvents = 'none';
+        })
         clearInterval(intervalId);
         gameOver();
     }
@@ -55,14 +55,14 @@ function initTimer(){
 
 function flipCard(e){
     if (isProcessing) return;
-    if (e.target.className === 'front-card') { 
-        e.target.style.opacity = '1';
+    if (e.target.className === 'back-card') { 
+        e.target.style.opacity = '0';
         //only trigger timer when initial back card is clicked
         if (!intervalId) { //if undefined it will start timer, i.e. only first card will start timer
-            intervalId = setInterval(initTimer, 1000);
+            intervalId = setInterval(initTimer, 10);
         }
-        if (cardsBeingChecked === 2){ //checks after flips card, checks how many cards there are. change cardsbeingchecked
-            isProcessing = true; //if 2 cards, setprocessing is true so no other cards can be flipped
+        if (cardsBeingChecked === 2){ //checks after flipping card, checks how many cards there are
+            isProcessing = true; //if 2 cards, isProcessing is true so no other cards can be flipped
             checkMatch();
             checkWinner();
         }
@@ -88,7 +88,6 @@ cards.forEach(function(card){
         secondCard = e.target;
         cardsBeingChecked++; 
         }
-        // checkWinner();
     });
     
 });
@@ -96,11 +95,12 @@ cards.forEach(function(card){
 function checkMatch(){
     if (firstCardText === secondCardText){
         isMatch(firstCard, secondCard);
+        // firstCard.style.pointerEvents = 'none';
+        // secondCard.style.pointerEvents = 'none';
     } else if (firstCardText !== secondCardText){
         isNotMatch(firstCard, secondCard);
     }
 }
-
 
 function isMatch(card1, card2){
     if(firstCard && secondCard){
@@ -108,8 +108,8 @@ function isMatch(card1, card2){
     matchedCards.push(card2);
     card1.removeEventListener('click', flipCard); 
     card2.removeEventListener('click', flipCard);
-    card1.style.pointerEvents = 'none';
-    card2.style.pointerEvents = 'none';
+    // card1.style.pointerEvents = 'none'; // <-- firing off after start over button pressed, not during game
+    // card2.style.pointerEvents = 'none';
     //This will prevent previous matched cards from being compared
     firstCard = null; 
     secondCard = null; 
@@ -123,8 +123,8 @@ function isMatch(card1, card2){
 function isNotMatch(card1, card2){
     if(firstCard && secondCard){
     setTimeout(() => {
-        card1.style.opacity = '0';
-        card2.style.opacity = '0';
+        card1.style.opacity = '1';
+        card2.style.opacity = '1';
         firstCard = null; 
         secondCard = null; 
         firstCardText = null; 
@@ -135,23 +135,17 @@ function isNotMatch(card1, card2){
     }
 }
 
-
 function checkWinner(){ 
     if (matchedCards.length === cards.length){
-        clearInterval(intervalId); 
+        clearInterval(intervalId); //stops timer when user finishes
         h2El.innerText = 'CONGRATULATIONS! YOU FOUND EVERYONE!'
         h3El.innerText = 'PRESS \'START OVER\' TO PLAY AGAIN.'
     }
-}
-//called on line 100;
+} //called on line 67
 
 function gameOver(){
     h2El.innerText = 'SORRY, YOU RAN OUT OF TIME. YOU LOSE.'
     h3El.innerText = 'PRESS \'START OVER\' TO PLAY AGAIN.'
-
-
-    // cards.forEach(function(card){ //continues to disable cards once start over btn pressed
-    //     removeEventListener('click', flipCard);
 }
 
 function shuffleCards(){
@@ -161,6 +155,7 @@ function shuffleCards(){
         cards[i].style.order = randomIndex; 
     }
 }
+
 
 function resetTimer(){ 
     time = 120;
@@ -176,14 +171,14 @@ function resetTitle(){
 }
 
 function resetCards(){
-    faceUpCard.forEach(function(card){ //forEach cos an array
-        card.style.opacity = '0';
+    faceDownCard.forEach(function(card){ //forEach cos an array
+        card.style.opacity = '1';
     });
 } 
 
-function resetPointer(str){
+function resetPointer(){
     cards.forEach(function(card){
-        card.style.pointerEvents = str; //change to auto in diff function and put it in init
+        card.style.pointerEvents = 'auto';
     })
 }
 
