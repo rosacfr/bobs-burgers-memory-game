@@ -2,12 +2,13 @@ const startOverBtn = document.querySelector('#start-over');
 let h2El = document.querySelector('h2');
 let h3El = document.querySelector('h3');
 const gameContainer = document.querySelector('#game-container');
-const faceUpCard = Array.from(document.querySelectorAll('.front-card'));
+const faceUpCard = Array.from(document.querySelectorAll('.front-card'))
 const faceDownCard = Array.from(document.querySelectorAll('.back-card'));
 const cards = Array.from(document.querySelectorAll('.card')); // turns all cards into array
 let countdownEl = document.querySelector('#countdown')
-const startingMinutes = 2;
-let time = startingMinutes * 60; // 60 cos want all the seconds ( = 120)
+// const startingMinutes = 2;
+// let time = startingMinutes * 60; // 60 cos want all the seconds ( = 120)
+let time = 100
 let isProcessing = false;
 let cardsBeingChecked = 0; 
 let firstCard; 
@@ -17,8 +18,7 @@ let secondCardText;
 let intervalId; //setInterval always has an id
 let matchedCards = [];
 
-//event listeners
-
+//event listener
 startOverBtn.addEventListener('click', init)
 
 //functions
@@ -33,16 +33,10 @@ function init(e) {
 }
 init();
 
-//countdown timer. Will stop when it hits 0:00
+//countdown timer
 function initTimer(){
-    let minutes = Math.floor(time /60); // 120/60 = 2 & math.floor or else 1.51666:59
-    let seconds = time % 60; //all seconds remaining after division of 120/60
-    if (seconds < 10){
-        countdownEl.innerHTML = `${minutes}:0${seconds}` //or else would be 2:0 instead of 2:00
-    } else {
-        countdownEl.innerHTML = `${minutes}:${seconds}`
-    }
-    if(time > 0){ //will stop time once hits 0:00
+    countdownEl.innerHTML = time
+    if(time > 0){ //will stop time once hits 0
     time --; 
     } else {
         cards.forEach(function(card){
@@ -56,10 +50,11 @@ function initTimer(){
 function flipCard(e){
     if (isProcessing) return;
     if (e.target.className === 'back-card') { 
-        e.target.style.opacity = '0';
+        //e.target.style.opacity = '0';
+        e.target.classList.add('flip')
         //only trigger timer when initial back card is clicked
         if (!intervalId) { //if undefined it will start timer, i.e. only first card will start timer
-            intervalId = setInterval(initTimer, 10);
+            intervalId = setInterval(initTimer, 1000);
         }
         if (cardsBeingChecked === 2){ //checks after flipping card, checks how many cards there are
             isProcessing = true; //if 2 cards, isProcessing is true so no other cards can be flipped
@@ -95,8 +90,6 @@ cards.forEach(function(card){
 function checkMatch(){
     if (firstCardText === secondCardText){
         isMatch(firstCard, secondCard);
-        // firstCard.style.pointerEvents = 'none';
-        // secondCard.style.pointerEvents = 'none';
     } else if (firstCardText !== secondCardText){
         isNotMatch(firstCard, secondCard);
     }
@@ -108,30 +101,30 @@ function isMatch(card1, card2){
     matchedCards.push(card2);
     card1.removeEventListener('click', flipCard); 
     card2.removeEventListener('click', flipCard);
-    // card1.style.pointerEvents = 'none'; // <-- firing off after start over button pressed, not during game
-    // card2.style.pointerEvents = 'none';
     //This will prevent previous matched cards from being compared
     firstCard = null; 
     secondCard = null; 
     firstCardText = null; 
     secondCardText = null;
     isProcessing = false;
-    cardsBeingChecked = 0;
+    cardsBeingChecked = 0; //set to compare new set of cards
     }
 }
 
 function isNotMatch(card1, card2){
     if(firstCard && secondCard){
     setTimeout(() => {
-        card1.style.opacity = '1';
-        card2.style.opacity = '1';
+        // card1.style.opacity = '1';
+        // card2.style.opacity = '1';
+        card1.classList.remove('flip');
+        card2.classList.remove('flip');
         firstCard = null; 
         secondCard = null; 
         firstCardText = null; 
         secondCardText = null;
         isProcessing = false;
         cardsBeingChecked = 0;
-        }, 1000);
+        }, 900);
     }
 }
 
@@ -140,6 +133,9 @@ function checkWinner(){
         clearInterval(intervalId); //stops timer when user finishes
         h2El.innerText = 'CONGRATULATIONS! YOU FOUND EVERYONE!'
         h3El.innerText = 'PRESS \'START OVER\' TO PLAY AGAIN.'
+        faceUpCard.forEach(function(card){
+            card.classList.add('victory');
+        })
     }
 } //called on line 67
 
@@ -158,8 +154,8 @@ function shuffleCards(){
 
 
 function resetTimer(){ 
-    time = 120;
-    countdownEl.innerText = '2:00'
+    time = 100;
+    countdownEl.innerText = '100'
     clearInterval(intervalId);
     intervalId = undefined;
 }
@@ -171,8 +167,9 @@ function resetTitle(){
 }
 
 function resetCards(){
-    faceDownCard.forEach(function(card){ //forEach cos an array
-        card.style.opacity = '1';
+    faceDownCard.forEach(function(card){
+        //card.style.opacity = '1';
+        card.classList.remove('flip');
     });
 } 
 
