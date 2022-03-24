@@ -10,7 +10,7 @@ Live page: https://rosacf-ga.github.io/bobs-burgers-memory-game/
 - The player must try to match all the cards on the screen before the time is up or else they lose
 ***
 ## **Screenshot** 
-![Game wireframe](/imgs/wireframe.png)
+![Game wireframe](./imgs/wireframe.png)
 ***
 ## **Technologies Used** 
 - HTML 
