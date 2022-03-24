@@ -16,10 +16,11 @@ let secondCardText;
 let intervalId; //setInterval always has an id
 let matchedCards = [];
 
-//event listener
-startOverBtn.addEventListener('click', init)
+//will reset game upon pressing 'start over' button
+startOverBtn.addEventListener('click', init) 
 
-//functions
+
+//initializes game upon page load
 function init(e) {
     shuffleCards();
     resetTimer();
@@ -35,10 +36,10 @@ init();
 function initTimer(){
     countdownEl.innerHTML = time;
     if(time > 0){ //will stop time once hits 0
-    time --; 
-    } else {
+    time--; 
+    } else { 
         cards.forEach(function(card){
-            card.style.pointerEvents = 'none';
+        card.style.pointerEvents = 'none'; //user won't be allowed to click anymore cards
         })
         clearInterval(intervalId);
         gameOver();
@@ -47,19 +48,19 @@ function initTimer(){
 
 function flipCard(e){
     if (isProcessing) return;
+    //only elements with back-card class will be abled to be clicked
     if (e.target.className === 'back-card') { 
-        e.target.classList.add('flip')
+        e.target.classList.add('flip') // flip reveals card beneath facedown card
         //only trigger timer when initial back card is clicked
         if (!intervalId) { //if undefined/false it will start timer, i.e. only first card will start timer because once first card is clicked, intervalId won't be undefined anymore
-            intervalId = setInterval(initTimer, 1000);
+            intervalId = setInterval(initTimer, 10);
         }
-        if (cardsBeingChecked === 2){ //checks after flipping card, checks how many cards there are
+        if (cardsBeingChecked === 2){ //checks after flipping card to see how many cards there are
             isProcessing = true; //if 2 cards, isProcessing is true so no other cards can be flipped
             checkMatch();
             checkWinner();
         }
     } else {
-        
         return
     }
 };
@@ -72,13 +73,13 @@ cards.forEach(function(card){
 cards.forEach(function(card){
     card.addEventListener('click', (e) => {
         if (cardsBeingChecked === 0) {
-        firstCardText = e.target.getAttribute('alt') // img alt attribute in html
-        firstCard = e.target
-        cardsBeingChecked++;
-        } else {
-        secondCardText = e.target.getAttribute('alt');
-        secondCard = e.target;
-        cardsBeingChecked++; 
+            firstCardText = e.target.getAttribute('alt') // img alt attribute in html
+            firstCard = e.target //actual photo
+            cardsBeingChecked++;
+        } else { // if card being checked isn't at 0
+            secondCardText = e.target.getAttribute('alt');
+            secondCard = e.target;
+            cardsBeingChecked++; 
         }
     });
     
@@ -94,31 +95,34 @@ function checkMatch(){
 
 function isMatch(card1, card2){
     if(firstCard && secondCard){
-    matchedCards.push(card1); 
-    matchedCards.push(card2);
-    card1.removeEventListener('click', flipCard); 
-    card2.removeEventListener('click', flipCard);
+    //both cards are pushed into the matchedCards array
+        matchedCards.push(card1); 
+        matchedCards.push(card2);
+    //both cards will no longer respond to clicks
+        card1.removeEventListener('click', flipCard); 
+        card2.removeEventListener('click', flipCard);
     //This will prevent previous matched cards from being compared
-    firstCard = null; 
-    secondCard = null; 
-    firstCardText = null; 
-    secondCardText = null;
-    isProcessing = false;
-    cardsBeingChecked = 0; //set to 0 to be able to compare new set of cards
-    }
-}
-
-function isNotMatch(card1, card2){
-    if(firstCard && secondCard){
-    setTimeout(() => {
-        card1.classList.remove('flip');
-        card2.classList.remove('flip');
         firstCard = null; 
         secondCard = null; 
         firstCardText = null; 
         secondCardText = null;
         isProcessing = false;
-        cardsBeingChecked = 0;
+        cardsBeingChecked = 0; //set to 0 to be able to compare new set of cards
+    }
+}
+
+function isNotMatch(card1, card2){
+    if(firstCard && secondCard){
+        setTimeout(() => {
+        //unmatched cards are flipped back to show facedown card
+            card1.classList.remove('flip');
+            card2.classList.remove('flip');
+            firstCard = null; 
+            secondCard = null; 
+            firstCardText = null; 
+            secondCardText = null;
+            isProcessing = false;
+            cardsBeingChecked = 0;
         }, 850);
     }
 }
@@ -168,7 +172,6 @@ function resetCards(){
 
 function resetPointer(){
     cards.forEach(function(card){
-        card.style.pointerEvents = 'auto';
+        card.style.pointerEvents = 'auto'; //will be able to click again
     })
 }
-
