@@ -110,12 +110,17 @@ footer > p {
 }
 
 .victory {
+<<<<<<< HEAD
+    animation: pulse 1.5s 1;
+    box-shadow: 10px 10px 10px;
+=======
     animation: pulse 1.2s 1;
     box-shadow: 10px 10px 10px;
 }
 
 .end-message {
     animation: blinker 0.18s 7;
+>>>>>>> main
 }
 
 @keyframes pulse {
