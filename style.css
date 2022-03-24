@@ -63,6 +63,7 @@ h3 {
 .back-card:hover {
     box-shadow: 9px 9px 14px;
     filter: brightness(1.2);
+    cursor: pointer;
 }
 
 .back-card {  /*overlays over front-card image*/
@@ -92,6 +93,7 @@ button > img {
 button:hover {
     animation: pulse 2s;
     transform: scale(1.2);
+    cursor: pointer;
 }
 
 footer > p {
@@ -145,11 +147,12 @@ footer > p {
         width: 180px;
     }
     
-    h2, h3 {
-        font-size: 18px;
+    h2 {
+        font-size: 22px;
     } 
 
     h3 {
+        font-size: 16px;
         margin-top: -5px;
     }
 
@@ -165,25 +168,29 @@ footer > p {
     #game-container {
         grid-template-columns: repeat(4, 1fr);
         grid-template-rows: repeat(6, 1fr);
-        width: 260px;
+        width: 275px;
         margin: 5px auto 5px;
         gap: 5px;
     }
 
     .card > img {
-        width: 58px;
+        width: 60px;
     }
 
     .back-card {
-        margin: 0 -58px;
+        margin: 0 -60px;
+    }
+
+    .back-card:hover {
+    filter: brightness(1);
     }
 
     button > img{
         width: 100px;
-
     }
-    #footer > p {
-        height: 10px;
-        font-size: 16px;
+    
+    p {
+        height: 8px;
+        font-size: 14px;
     }
 }
