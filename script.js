@@ -6,8 +6,6 @@ const faceUpCard = Array.from(document.querySelectorAll('.front-card'))
 const faceDownCard = Array.from(document.querySelectorAll('.back-card'));
 const cards = Array.from(document.querySelectorAll('.card')); // turns all cards into array
 let countdownEl = document.querySelector('#countdown')
-// const startingMinutes = 2;
-// let time = startingMinutes * 60; // 60 cos want all the seconds ( = 120)
 let time = 100
 let isProcessing = false;
 let cardsBeingChecked = 0; 
@@ -35,7 +33,7 @@ init();
 
 //countdown timer
 function initTimer(){
-    countdownEl.innerHTML = time
+    countdownEl.innerHTML = time;
     if(time > 0){ //will stop time once hits 0
     time --; 
     } else {
@@ -50,10 +48,9 @@ function initTimer(){
 function flipCard(e){
     if (isProcessing) return;
     if (e.target.className === 'back-card') { 
-        //e.target.style.opacity = '0';
         e.target.classList.add('flip')
         //only trigger timer when initial back card is clicked
-        if (!intervalId) { //if undefined it will start timer, i.e. only first card will start timer
+        if (!intervalId) { //if undefined/false it will start timer, i.e. only first card will start timer because once first card is clicked, intervalId won't be undefined anymore
             intervalId = setInterval(initTimer, 1000);
         }
         if (cardsBeingChecked === 2){ //checks after flipping card, checks how many cards there are
@@ -107,15 +104,13 @@ function isMatch(card1, card2){
     firstCardText = null; 
     secondCardText = null;
     isProcessing = false;
-    cardsBeingChecked = 0; //set to compare new set of cards
+    cardsBeingChecked = 0; //set to 0 to be able to compare new set of cards
     }
 }
 
 function isNotMatch(card1, card2){
     if(firstCard && secondCard){
     setTimeout(() => {
-        // card1.style.opacity = '1';
-        // card2.style.opacity = '1';
         card1.classList.remove('flip');
         card2.classList.remove('flip');
         firstCard = null; 
@@ -124,7 +119,7 @@ function isNotMatch(card1, card2){
         secondCardText = null;
         isProcessing = false;
         cardsBeingChecked = 0;
-        }, 900);
+        }, 850);
     }
 }
 
@@ -152,7 +147,6 @@ function shuffleCards(){
     }
 }
 
-
 function resetTimer(){ 
     time = 100;
     countdownEl.innerText = '100'
@@ -168,8 +162,7 @@ function resetTitle(){
 
 function resetCards(){
     faceDownCard.forEach(function(card){
-        //card.style.opacity = '1';
-        card.classList.remove('flip');
+        card.classList.remove('flip'); //cards will turn back to facedown
     });
 } 
 
