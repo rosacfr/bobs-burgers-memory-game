@@ -69,7 +69,6 @@ h3 {
 .back-card {  /*overlays over front-card image*/
     position: absolute;
     margin: 0 -80px;
-    opacity: 1;
     transition: transform 0.25s linear;
 }
 
@@ -111,8 +110,12 @@ footer > p {
 }
 
 .victory {
-    animation: pulse 1s 1;
-    box-shadow: 5px 5px 10px;
+    animation: pulse 1.2s 1;
+    box-shadow: 10px 10px 10px;
+}
+
+.end-message {
+    animation: blinker 0.18s 7;
 }
 
 @keyframes pulse {
@@ -121,7 +124,7 @@ footer > p {
 	}
 
 	70% {
-		transform: scale(1.07);
+		transform: scale(1.06);
 	}
 
 	100% {
@@ -129,6 +132,9 @@ footer > p {
 	}
 }
 
+@keyframes blinker {  
+    50% { opacity: 0; }
+}
 
 /*to make this responsive on phones*/
 @media screen and (max-width: 480px) {
