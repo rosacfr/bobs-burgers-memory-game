@@ -165,16 +165,17 @@ footer > p {
     #game-container {
         grid-template-columns: repeat(4, 1fr);
         grid-template-rows: repeat(6, 1fr);
-        width: 290px;
-        margin:10px auto 10px;
+        width: 260px;
+        margin: 5px auto 5px;
+        gap: 5px;
     }
 
     .card > img {
-        width: 50px;
+        width: 58px;
     }
 
     .back-card {
-        margin: 0 -50px;
+        margin: 0 -58px;
     }
 
     button > img{
