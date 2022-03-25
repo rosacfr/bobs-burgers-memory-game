@@ -11,6 +11,7 @@ Live page: https://rosacf-ga.github.io/bobs-burgers-memory-game/
 ***
 ## **Screenshot** 
 ![Game wireframe](./imgs/wireframe.png)
+![Winning game wireframe](./imgs/wireframe2.png)
 ***
 ## **Technologies Used** 
 - HTML 
