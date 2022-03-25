@@ -170,6 +170,9 @@ function resetCards(){
     faceDownCard.forEach(function(card){
         card.classList.remove('flip'); //cards will turn back to facedown
     });
+    faceUpCard.forEach(function(card){
+        card.classList.remove('victory');
+    });
 } 
 
 function resetPointer(){
