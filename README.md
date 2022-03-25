@@ -9,7 +9,7 @@ Play [here](https://rosacf-ga.github.io/bobs-burgers-memory-game/)!
 - The game is initialized when the player clicks a card, and a timer of 100 seconds starts counting down
 - The player must try to match all the cards on the screen before the time is up or else they lose
 ***
-## **Screenshot** 
+## **Screenshots** 
 ![Game wireframe](./imgs/wireframe.png)
 ![Winning game wireframe](./imgs/wireframe2.png)
 ***
