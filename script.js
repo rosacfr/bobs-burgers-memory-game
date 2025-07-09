@@ -6,7 +6,7 @@ const faceUpCard = Array.from(document.querySelectorAll('.front-card'));
 const faceDownCard = Array.from(document.querySelectorAll('.back-card'));
 const cards = Array.from(document.querySelectorAll('.card')); // turns all cards into array
 let countdownEl = document.querySelector('#countdown');
-let time = 100;
+let time = 75;
 let isProcessing = false;
 let cardsBeingChecked = 0; 
 let firstCard; 
@@ -154,8 +154,8 @@ function shuffleCards(){
 }
 
 function resetTimer(){ 
-    time = 100;
-    countdownEl.innerText = '100';
+    time = 75;
+    countdownEl.innerText = 75';
     clearInterval(intervalId);
     intervalId = undefined;
 }
