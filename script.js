@@ -155,7 +155,7 @@ function shuffleCards(){
 
 function resetTimer(){ 
     time = 75;
-    countdownEl.innerText = 75';
+    countdownEl.innerText = '75';
     clearInterval(intervalId);
     intervalId = undefined;
 }
